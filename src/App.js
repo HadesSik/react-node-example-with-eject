@@ -1,9 +1,17 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import {
+  Switch, Route, withRouter, Link,
+} from 'react-router-dom';
 import logo from './logo.svg';
 import './App.css';
+import About from './About';
+import Home from './Home';
 
+// react-router-dom에서 라우팅을 하기 위한 어노테이션(?)
+@withRouter
 class App extends Component {
+  // localhost의 node 백단, /api 테스트를 위함
   handleClick = () => {
     axios.get('/api/')
       .then((res) => {
@@ -32,6 +40,15 @@ class App extends Component {
           >
             Learn React
           </a>
+
+          <Switch>
+            <Route exact path="/about" component={About} />
+            <Route path="/home" component={Home} />
+          </Switch>
+          <ul>
+            <li><Link to="/home">Home</Link></li>
+            <li><Link to="/about">About</Link></li>
+          </ul>
           <button type="button" onClick={this.handleClick}>Axios to api self</button>
         </header>
       </div>
